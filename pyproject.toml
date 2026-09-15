@@ -1,0 +1,38 @@
+[project]
+name = "egocentric-spatial-analysis"
+version = "0.1.0"
+description = "Exploratory pipeline for reconstructing egocentric video and analyzing viewpoint-dependent spatial geometry using VGGT as an external backend."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24,<2",
+    "opencv-python>=4.8",
+    "scipy>=1.11",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+reconstruction = [
+    "torch",
+    "torchvision",
+    "Pillow",
+    "huggingface_hub",
+    "einops",
+    "safetensors",
+    "trimesh",
+]
+dev = [
+    "pytest>=7.4",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q --basetemp=outputs/pytest-tmp"

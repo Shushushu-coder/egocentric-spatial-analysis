@@ -1,0 +1,81 @@
+# Secrets and environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env.bak/
+venv.bak/
+
+# Test / type / lint caches
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.hypothesis/
+
+# Editors / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Model weights and checkpoints
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.onnx
+*.safetensors
+pretrain_weight/
+weights/
+checkpoints/
+ckpt/
+
+# Reconstruction / media artifacts
+*.ply
+*.npy
+*.npz
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wav
+
+# Private data
+raw_data/
+data/private/
+videos/
+private/
+
+# Runtime outputs (keep directory)
+outputs/*
+!outputs/.gitkeep
+outputs/pytest-tmp/
+
+# Local tool config
+.claude/
+.pixi/
