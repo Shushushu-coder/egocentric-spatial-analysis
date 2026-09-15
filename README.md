@@ -1,5 +1,7 @@
 # Egocentric Spatial Analysis
 
+English | [简体中文](README.zh-CN.md)
+
 A reusable pipeline for egocentric video preprocessing, VGGT-based 3D reconstruction, and viewpoint-aware spatial analysis.
 
 **Input:** one or more labeled first-person videos (or an existing reconstruction directory).
