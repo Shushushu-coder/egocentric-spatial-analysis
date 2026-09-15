@@ -66,17 +66,25 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-Video preprocessing needs a **working** OpenCV build that provides `cv2.VideoCapture` / `cv2.VideoWriter`. Declare **one** wheel:
+Video preprocessing needs a **working** OpenCV 4.x build that provides `cv2.VideoCapture` / `cv2.VideoWriter`. Declare **one** wheel:
 
-- `opencv-python` (default in `requirements.txt`), or
-- `opencv-python-headless`
+- `opencv-python>=4.8,<5` (default in `requirements.txt`), or
+- `opencv-python-headless` in the same 4.x range
 
-Do not install both. A leftover empty `cv2/` folder or a broken `opencv-contrib-python` install can shadow the real package: `import cv2` succeeds but video I/O attributes are missing, and video tests skip. Quality metrics still run via a NumPy fallback; frame extraction does not.
+Do not install both, and do not mix in `opencv-contrib-python`. OpenCV 5.x pulls `numpy>=2`, which conflicts with this project’s `numpy>=1.24,<2`. A leftover empty `cv2/` folder or a broken contrib install can shadow the real package: `import cv2` succeeds but video I/O attributes are missing, and video tests skip. Quality metrics still run via a NumPy fallback; frame extraction does not.
 
-VGGT reconstruction needs the official package and a licensed checkpoint. Install VGGT from upstream and obtain weights yourself. This repository does not bundle VGGT source or `model.pt`.
+VGGT reconstruction is **not** installed by `pip install -r requirements.txt` or `pip install -e .`. Those commands do not download `model.pt`. Install the official VGGT package from upstream and obtain a licensed checkpoint yourself. This repository does not bundle VGGT source or weights.
 
 ```bash
+# Optional torch / trimesh extras for this wrapper. Still not VGGT itself.
 pip install -e ".[reconstruction]"
+
+# VGGT (external). Follow upstream; a typical local install is:
+#   git clone https://github.com/facebookresearch/vggt
+#   pip install -e path/to/vggt
+# Then download model.pt (or another licensed checkpoint) from Meta / Hugging Face
+# and pass --weight-path. --from-pretrained may download facebook/VGGT-1B; that is
+# an explicit opt-in, not part of pip install -r requirements.txt.
 ```
 
 Match torch / CUDA to your machine. Reconstruction extras do not replace a VGGT install.
@@ -132,7 +140,7 @@ pip install -r requirements-dev.txt
 pytest
 ```
 
-Geometry, sampling, and analysis tests use synthetic arrays. The video extraction test needs a working OpenCV video I/O build; if `cv2` is missing `VideoCapture` / `VideoWriter`, that test **skips** (it does not mock capture). Full video-pipeline coverage is therefore environment-dependent.
+Geometry, sampling, and analysis tests use synthetic arrays. The video extraction test writes a tiny synthetic clip with OpenCV `VideoWriter` and reads it with `VideoCapture` (no private footage, no mocked capture). With a working OpenCV 4.x wheel it should run, not skip. If `cv2` is missing those attributes, that test **skips** instead of faking a pass.
 
 ## VGGT dependency and attribution
 
@@ -140,7 +148,7 @@ Reconstruction uses **VGGT: Visual Geometry Grounded Transformer** (Wang et al.,
 
 See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-A top-level license for **this repository’s original code** has not been chosen yet (`LICENSE_DECISION_REQUIRES_HUMAN_REVIEW`). Do not treat the VGGT license as automatically covering the wrapper, preprocessing, or analysis layers.
+Original code in this repository is classified as an independent VGGT wrapper (`INDEPENDENT_WRAPPER`) and is technically ready for its own top-level license (`READY_FOR_INDEPENDENT_TOP_LEVEL_LICENSE`). No SPDX `LICENSE` file is included yet; choose MIT / Apache-2.0 / BSD (or another) separately. Do not treat the VGGT license as covering the wrapper, preprocessing, or analysis layers. Keep [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Data privacy
 

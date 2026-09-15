@@ -26,7 +26,7 @@ VGGT (like other monocular feed-forward reconstructors) does not provide a relia
 
 - VGGT must be installed and licensed separately.
 - Tests cover project-owned geometry and preprocessing on synthetic inputs, not VGGT accuracy.
-- A complete video-extraction test requires a working OpenCV install that exports `cv2.VideoCapture` and `cv2.VideoWriter`. An empty or broken `cv2` namespace (common with leftover `opencv-contrib-python` folders) causes that test to skip; it is not mocked as a pass.
+- A complete video-extraction test requires a working OpenCV 4.x install that exports `cv2.VideoCapture` and `cv2.VideoWriter`. An empty or broken `cv2` namespace (common with leftover `opencv-contrib-python` folders, or mixing OpenCV wheel families) causes that test to skip; it is not mocked as a pass.
 - Windows-specific hardcoded paths from a prior private codebase were removed; remaining platform differences (ffmpeg on PATH, codecs) still apply.
 
 ## Study size and interpretation

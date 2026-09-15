@@ -4,21 +4,18 @@ This repository contains **original application-layer code** (video preprocessin
 
 ## Original code in this repository
 
-Preprocessing, CLI wrappers, analysis, and tests in this tree were written for this project and do **not** copy VGGT source.
+Preprocessing, CLI wrappers, analysis, and tests in this tree were written for this project and do **not** copy VGGT source files, weights, or official demo media.
 
-A top-level license for that original layer has **not** been chosen.
+Technical classification after a source-tree review (this is not legal advice):
 
-`LICENSE_DECISION_REQUIRES_HUMAN_REVIEW`
+- `INDEPENDENT_WRAPPER` — `src/egocentric_spatial_analysis/reconstruction/backend.py` calls VGGT’s public Python API (`vggt.models.vggt.VGGT`, `load_and_preprocess_images_square`, `pose_encoding_to_extri_intri`, `unproject_depth_map_to_point_map`, plus `aggregator` / `camera_head` / `depth_head`) and owns orchestration, device selection, numpy/PLY serialization, and error handling. It does not vendor VGGT modules or rewrite VGGT internals.
+- `READY_FOR_INDEPENDENT_TOP_LEVEL_LICENSE` — original files in this repository can carry their own license, independent of VGGT.
 
-Do **not** copy the VGGT `LICENSE.txt` onto this repository and treat it as covering the wrapper or analysis code. That would mis-label original work as Meta research materials.
+This notice does **not** choose MIT / Apache-2.0 / BSD (or any other SPDX license). Add a top-level `LICENSE` only after a human picks one. Until that file exists, treat original files as all-rights-reserved except as you later grant.
 
-Human review still needs to decide:
+Do **not** copy the VGGT `LICENSE.txt` onto this repository and treat it as covering the wrapper, preprocessing, or analysis layers.
 
-1. Which license (if any) should apply to the original Python in this tree.
-2. Whether any reconstruction-wrapper file is close enough to VGGT usage examples to be treated as a derivative of VGGT “Research Materials.”
-3. How redistribution of this repo should tell downstream users they still need a separate VGGT grant for code, demos, and weights.
-
-Until that review, this tree should be treated as all-rights-reserved for original files, with VGGT remaining under its own terms.
+VGGT remains under its own third-party terms. Keep this file. README must keep attribution and the external-dependency statement. Downstream users still need a separate VGGT grant for VGGT code, demos, and weights.
 
 ## VGGT (code and demonstration materials)
 
