@@ -1,7 +1,7 @@
 [project]
 name = "egocentric-spatial-analysis"
 version = "0.1.0"
-description = "Exploratory pipeline for reconstructing egocentric video and analyzing viewpoint-dependent spatial geometry using VGGT as an external backend."
+description = "Reusable pipeline for egocentric video preprocessing, VGGT-based 3D reconstruction, and viewpoint-aware spatial analysis."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
