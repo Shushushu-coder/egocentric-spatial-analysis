@@ -1,7 +1,8 @@
 numpy>=1.24,<2
-# Video I/O: install exactly one OpenCV wheel (this, or opencv-python-headless).
+# Video I/O: install exactly one OpenCV 4.x wheel (this, or opencv-python-headless).
 # Do not combine with opencv-contrib-python; a leftover empty cv2/ namespace
 # makes import succeed without VideoCapture.
-opencv-python>=4.8
+# Cap below 5.x: opencv-python 5 requires numpy>=2, which conflicts with numpy<2 above.
+opencv-python>=4.8,<5
 scipy>=1.11
 matplotlib>=3.8
