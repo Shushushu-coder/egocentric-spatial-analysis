@@ -5,9 +5,24 @@ import pytest
 
 from egocentric_spatial_analysis.preprocessing.extract import extract_synchronized_frames
 
-cv2 = pytest.importorskip("cv2")
-if not hasattr(cv2, "VideoWriter"):
-    pytest.skip("working OpenCV video I/O is not available", allow_module_level=True)
+cv2 = pytest.importorskip("cv2", reason="OpenCV (cv2) is not installed")
+_missing_video_io = [
+    name for name in ("VideoCapture", "VideoWriter") if not hasattr(cv2, name)
+]
+if _missing_video_io:
+    _origin = getattr(cv2, "__file__", None)
+    if _origin is None:
+        _paths = list(getattr(cv2, "__path__", []) or [])
+        _origin = _paths[0] if _paths else "unknown location"
+    pytest.skip(
+        "OpenCV imported but video I/O is missing "
+        f"({', '.join(_missing_video_io)}); module origin: {_origin}. "
+        "ENVIRONMENT_ISSUE: install one working opencv-python or "
+        "opencv-python-headless wheel and remove leftover empty cv2/ "
+        "folders or broken opencv-contrib-python installs. "
+        "This test does not mock VideoCapture.",
+        allow_module_level=True,
+    )
 
 
 def _write_video(path: Path, n_frames: int = 15, fps: float = 5.0, color=(0, 255, 0)) -> None:
